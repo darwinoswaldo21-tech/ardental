@@ -17,7 +17,7 @@ type Colleague = {
   notes?: string | null;
   is_active?: boolean | null;
   created_at?: string | null;
-  specialties?: Specialty | null;
+  specialties?: Specialty[];
 };
 
 type ColleaguesClientProps = {
