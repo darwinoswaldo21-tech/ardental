@@ -42,7 +42,7 @@ export default async function ColleagueDetailPage({
             {colleague.full_name}
           </h1>
           <p className="text-sm text-slate-600">
-            {colleague.specialties?.name ?? "Especialidad"}
+            {colleague.specialties?.[0]?.name ?? "Especialidad"}
           </p>
         </div>
         <Link
