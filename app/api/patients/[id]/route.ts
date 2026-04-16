@@ -1,11 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { patientSchema } from "@/lib/validations/patients";
 
 export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
   const supabase = await createClient();
   const body = await request.json();
   const parsed = patientSchema.safeParse(body);
@@ -20,7 +21,7 @@ export async function PATCH(
   const { error } = await supabase
     .from("patients")
     .update(parsed.data)
-    .eq("id", params.id);
+    .eq("id", id);
 
   if (error) {
     return NextResponse.json(
